@@ -1,8 +1,10 @@
 	object_const_def
 	const BATTLETOWERHALLWAY_RECEPTIONIST
 
-BattleTowerHallway_MapScripts:
+
+BattleTowerHallway_MapScripts:; 67b33 in jp rom
 	def_scene_scripts
+
 	scene_script .Scene0 ; SCENE_DEFAULT
 	scene_script .Scene1 ; SCENE_FINISHED
 
@@ -14,36 +16,44 @@ BattleTowerHallway_MapScripts:
 .Scene1:
 	end
 
-.ChooseBattleRoom:
+.ChooseBattleRoom: ; 7b43
 	follow BATTLETOWERHALLWAY_RECEPTIONIST, PLAYER
-	callasm .asm_load_battle_room
-	sjump .WalkToChosenBattleRoom
-
-.asm_load_battle_room
-	ldh a, [rSVBK]
-	push af
-
-	ld a, BANK(wBTChoiceOfLvlGroup)
-	ldh [rSVBK], a
-	ld a, [wBTChoiceOfLvlGroup]
-	ld [wScriptVar], a
-
-	pop af
-	ldh [rSVBK], a
-	ret
-
+;	callasm .asm_load_battle_room
+;	sjump .WalkToChosenBattleRoom
+;
+;.asm_load_battle_room
+;	ldh a, [rSVBK]
+;	push af
+;
+;	ld a, BANK(wBTChoiceOfLvlGroup)
+;	ldh [rSVBK], a
+;	ld a, [wBTChoiceOfLvlGroup]
+;	ld [wScriptVar], a
+;
+;	pop af
+;	ldh [rSVBK], a
+;	ret
+;
 ; enter different rooms for different levels to battle against
 ; at least it should look like that
 ; because all warps lead to the same room
-.WalkToChosenBattleRoom:
-	ifequal 3, .L30L40
-	ifequal 4, .L30L40
-	ifequal 5, .L50L60
-	ifequal 6, .L50L60
-	ifequal 7, .L70L80
-	ifequal 8, .L70L80
-	ifequal 9, .L90L100
-	ifequal 10, .L90L100
+;.WalkToChosenBattleRoom:
+;	ifequal 3, .L30L40
+;	ifequal 4, .L30L40
+;	ifequal 5, .L50L60
+;	ifequal 6, .L50L60
+;	ifequal 7, .L70L80
+;	ifequal 8, .L70L80
+;	ifequal 9, .L90L100
+;	ifequal 10, .L90L100
+
+	setval BATTLETOWERACTION_LOADLEVELGROUP
+	special BattleTowerAction
+	ifequal 1, .L30L40
+	ifequal 2, .L50L60
+	ifequal 3, .L70L80
+	ifequal 4, .L90L100
+
 	applymovement BATTLETOWERHALLWAY_RECEPTIONIST, MovementData_BattleTowerHallwayWalkTo1020Room
 	sjump .EnterBattleRoom
 

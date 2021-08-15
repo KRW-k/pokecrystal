@@ -1654,11 +1654,11 @@ endr
 	ldh [rLCDC], a
 	ret
 
-.String_PressAToLink_BToCancel_JP:
-	db   "エーボタン<WO>おすと"
-	next "つうしん<PKMN>おこなわれるよ！"
-	next "ビーボタン<WO>おすと"
-	next "つうしん<WO>ちゅうし　します"
+String_PressAToLink_BToCancel_JP:
+	db   "Press A to"
+	next "link IR-Device"
+	next "Press B to"
+	next "cancel it."
 	db   "@"
 
 .NameCardReceivedCardText:

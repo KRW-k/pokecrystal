@@ -1951,9 +1951,9 @@ SECTION UNION "Miscellaneous WRAM 1", WRAMX
 
 ; mobile participant nicknames
 	ds 4
-wMobileParticipant1Nickname:: ds NAME_LENGTH_JAPANESE
-wMobileParticipant2Nickname:: ds NAME_LENGTH_JAPANESE
-wMobileParticipant3Nickname:: ds NAME_LENGTH_JAPANESE
+wMobileParticipant1Nickname:: ds NAME_LENGTH;_JAPANESE
+wMobileParticipant2Nickname:: ds NAME_LENGTH;_JAPANESE
+wMobileParticipant3Nickname:: ds NAME_LENGTH;_JAPANESE
 
 
 SECTION UNION "Miscellaneous WRAM 1", WRAMX
@@ -2066,7 +2066,11 @@ wd003:: ds 1
 wd004:: ds 1
 	ds 3
 wd008:: ds 2
-	ds 6
+wCardPhoneNumber::	ds 2
+wd00c:: ds 1
+wd00d:: ds 1
+	ds 1
+wd00f:: ds 1
 wd010:: ds 1
 wd011:: ds 1
 wd012:: ds 1

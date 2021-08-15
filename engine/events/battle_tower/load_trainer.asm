@@ -1,4 +1,5 @@
 LoadOpponentTrainerAndPokemon:
+; all of this is now obsolete
 	ldh a, [rSVBK]
 	push af
 	ld a, BANK(wBT_OTTrainer)

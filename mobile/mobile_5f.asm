@@ -424,22 +424,58 @@ Function17d1f1:
 Menu_ChallengeExplanationCancel:
 	ld a, [wScriptVar]
 	and a
-	jr nz, .English
+	jr nz, .jr_05f_5234;.English
 	ld a, $4
 	ld [wScriptVar], a
 	ld hl, MenuHeader_17d26a ; Japanese Menu, where you can choose 'News' as an option
 	jr .Load_Interpret
 
+.jr_05f_5234:
+    farcall BattleTower_CheckSaveFileExistsAndIsYours
+    ld a, [wScriptVar]
+    and a
+    jr nz, .jr_05f_524a
+
 .English:
 	ld a, $4
 	ld [wScriptVar], a
 	ld hl, MenuHeader_ChallengeExplanationCancel ; English Menu
+	jr .Load_Interpret
+
+.jr_05f_524a:
+    call Call_05f_5261
+    jr c, .English
+    ld a, $05
+    ld [wScriptVar], a
+    ld hl, MenuHeader_ChallengeRegisterExplanationCancel;$52f2
 
 .Load_Interpret:
 	call LoadMenuHeader
 	call Function17d246
 	call CloseWindow
 	ret
+
+Call_05f_5261:
+    ld a, BANK(s5_aa8e);$05
+    call GetSRAMBank;$2f9d
+    ld hl, s5_aa8e
+    ld bc, BATTLE_TOWER_STRUCT_LENGTH * BATTLETOWER_STREAK_LENGTH;$0594
+jr_05f_526c:
+    ld a, [hl+]
+    and a
+    jr nz, jr_05f_527b
+    dec bc
+    ld a, b
+    or a
+    and a
+    jr nz, jr_05f_526c
+    call CloseSRAM;$2fad
+    scf
+    ret
+
+jr_05f_527b:
+    call CloseSRAM;$2fad
+    ret
 
 Function17d246:
 	call VerticalMenu
@@ -475,21 +511,37 @@ MenuHeader_17d26a:
 MenuData_17d272:
 	db STATICMENU_CURSOR | STATICMENU_WRAP ; flags
 	db 4
-	db "ニュース¯よみこむ@"
-	db "ニュース¯みる@"
-	db "せつめい@"
-	db "やめる@"
+	db "Receive NEWS@";"ニュース¯よみこむ@"
+	db "View NEWS@";"ニュース¯みる@"
+	db "Explanation@";"せつめい@"
+	db "Cancel@";"やめる@"
 
 MenuHeader_ChallengeExplanationCancel:
 	db MENU_BACKUP_TILES ; flags
-	menu_coords 0, 0, 14, 7
+	menu_coords 0, 0, 16, 9;14, 7
 	dw MenuData_ChallengeExplanationCancel
 	db 1 ; default option
 
 MenuData_ChallengeExplanationCancel:
 	db STATICMENU_CURSOR | STATICMENU_WRAP ; flags
-	db 3
+	db 4
 	db "Challenge@"
+	db "Check LEADERS@" ; check leaders?
+	db "Explanation@"
+	db "Cancel@"
+
+MenuHeader_ChallengeRegisterExplanationCancel:
+	db MENU_BACKUP_TILES ; flags
+	menu_coords 0, 0, 16, 11
+	dw MenuData_ChallengeRegisterExplanationCancel
+	db 1 ; default option
+
+MenuData_ChallengeRegisterExplanationCancel:
+	db STATICMENU_CURSOR | STATICMENU_WRAP ; flags
+	db 5
+	db "Challenge@"
+	db "Check LEADERS@" ; check leaders?
+	db "Previous ROOM@"
 	db "Explanation@"
 	db "Cancel@"
 
@@ -1115,56 +1167,56 @@ asm_17d721:
 	ld [wcd77], a
 	ret
 
-Jumptable17d72a:
-	dw Function17d78c
-	dw Function17d78d
-	dw Function17d7b4
-	dw Function17d7c2
-	dw Function17d7d3
-	dw Function17d7e5
-	dw Function17d818
-	dw Function17d833
-	dw Function17d85d
-	dw Function17d902
-	dw Function17d93a
-	dw Function17d98b
-	dw Function17d9e3
-	dw Function17da31
-	dw Function17da9c
-	dw Function17dadc
-	dw Function17db2d
-	dw Function17db56
-	dw Function17db77
-	dw Function17dbe9
-	dw Function17dc1f
-	dw Function17dc9f
-	dw Function17dca9
-	dw Function17dccf
-	dw Function17dd13
-	dw Function17dd30
-	dw Function17dd49
-	dw Function17ddcd
-	dw Function17de32
-	dw Function17de91
-	dw Function17ded9
-	dw Function17e0fd
-	dw Function17e133
-	dw Function17e165
-	dw Function17e1a1
-	dw Function17e254
-	dw Function17e261
-	dw Function17e270
-	dw Function17e27f
-	dw Function17e293
-	dw Function17e2a7
-	dw IncCrashCheckPointer_SaveGameData
-	dw IncCrashCheckPointer_SaveAfterLinkTrade
-	dw IncCrashCheckPointer_SaveBox
-	dw IncCrashCheckPointer_SaveChecksum
-	dw IncCrashCheckPointer_SaveTrainerRankingsChecksum
-	dw Function17e3e0
-	dw Function17e3f0
-	dw Function17e409
+Jumptable17d72a: ; news script commands
+	dw Function17d78c ; 0
+	dw Function17d78d ; 1
+	dw Function17d7b4 ; 2
+	dw Function17d7c2 ; 3
+	dw Function17d7d3 ; 4
+	dw Function17d7e5 ; 5
+	dw Function17d818 ; 6
+	dw Function17d833 ; 7
+	dw Function17d85d ; 8
+	dw Function17d902 ; 9
+	dw Function17d93a ; a
+	dw Function17d98b ; b
+	dw Function17d9e3 ; c
+	dw Function17da31 ; d
+	dw Function17da9c ; e
+	dw Function17dadc ; f
+	dw Function17db2d ; 10
+	dw Function17db56 ; 11
+	dw Function17db77 ; 12
+	dw Function17dbe9 ; 13
+	dw Function17dc1f ; 14
+	dw Function17dc9f ; 15
+	dw Function17dca9 ; 16
+	dw Function17dccf ; 17
+	dw Function17dd13 ; 18
+	dw Function17dd30 ; 19
+	dw Function17dd49 ; 1a
+	dw Function17ddcd ; 1b
+	dw Function17de32 ; 1c
+	dw Function17de91 ; 1d
+	dw Function17ded9 ; 1e
+	dw Function17e0fd ; 1f
+	dw Function17e133 ; 20
+	dw Function17e165 ; 21
+	dw Function17e1a1 ; 22
+	dw Function17e254 ; 23
+	dw Function17e261 ; 24
+	dw Function17e270 ; 25
+	dw Function17e27f ; 26
+	dw Function17e293 ; 27
+	dw Function17e2a7 ; 28
+	dw IncCrashCheckPointer_SaveGameData ; 29
+	dw IncCrashCheckPointer_SaveAfterLinkTrade ; 2a
+	dw IncCrashCheckPointer_SaveBox ; 2b
+	dw IncCrashCheckPointer_SaveChecksum ; 2c
+	dw IncCrashCheckPointer_SaveTrainerRankingsChecksum ; 2d
+	dw Function17e3e0 ; 2e
+	dw Function17e3f0 ; 2f
+	dw Function17e409 ; 30
 
 Function17d78c:
 	ret
@@ -1881,8 +1933,8 @@ Function17dc1f:
 MenuData_17dc96: ; unreferenced
 	db STATICMENU_CURSOR | STATICMENU_NO_TOP_SPACING | STATICMENU_WRAP ; flags
 	db 2
-	db "はい@"
-	db "いいえ@"
+	db "YES@";"はい@"
+	db "NO@";"いいえ@"
 
 Function17dc9f:
 	call IncCrashCheckPointer

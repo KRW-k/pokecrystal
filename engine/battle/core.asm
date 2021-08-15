@@ -228,11 +228,12 @@ BattleTurn:
 .quit
 	ret
 
-Stubbed_Increments5_a89a:
-	ret
-	ld a, BANK(s5_a89a) ; MBC30 bank used by JP Crystal; inaccessible by MBC3
-	call OpenSRAM
-	ld hl, s5_a89a + 1 ; address of MBC30 bank
+
+Stubbed_Function3c1bf:
+;	ret
+	ld a, 5 ; MBC30 bank used by JP Crystal; inaccessible by MBC3
+	call GetSRAMBank
+	ld hl, $a89b ; address of MBC30 bank
 	inc [hl]
 	jr nz, .finish
 	dec hl

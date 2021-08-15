@@ -679,15 +679,17 @@ INCLUDE "data/battle_tower/unknown.asm"
 SECTION "Mobile News Data", ROMX
 
 INCLUDE "mobile/news/news.asm"
+INCLUDE "mobile/error.asm"
 
 
 SECTION "Crystal Events", ROMX
 
-INCLUDE "engine/events/battle_tower/load_trainer.asm"
+;INCLUDE "engine/events/battle_tower/load_trainer.asm"
 INCLUDE "engine/events/odd_egg.asm"
 
 
 SECTION "Stadium 2 Checksums", ROMX[$7DE0], BANK[$7F]
+
 
 ; The end of the ROM is taken up by checksums of the content, apparently used
 ; by Pokémon Stadium 2 due to the checksums' "N64PS3" header. (In Japan,
@@ -695,4 +697,11 @@ SECTION "Stadium 2 Checksums", ROMX[$7DE0], BANK[$7F]
 ; This SECTION reserves space for those checksums.
 ; If it is removed, also remove the "tools/stadium" command in the Makefile.
 
-	ds $220
+
+;if DEF(_CRYSTAL_AU)
+;INCBIN "mobile/stadium/stadium2_au.bin"
+;elif DEF(_CRYSTAL11)
+;INCBIN "mobile/stadium/stadium2_11.bin"
+;else
+INCBIN "mobile/stadium/stadium2.bin"
+;endc

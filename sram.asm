@@ -137,27 +137,32 @@ sHallOfFameEnd::
 
 SECTION "SRAM Crystal Data", SRAM
 
-sMobileEventIndex:: db
+
+;sMobileEventIndex::
+	db ; be3c
 
 sCrystalData:: ds wCrystalDataEnd - wCrystalData
 
-sMobileEventIndexBackup:: db
+;sMobileEventIndexBackup:: 
+	db ; be44
 
 
 SECTION "SRAM Battle Tower", SRAM
 
 ; Battle Tower data must be in SRAM because you can save and leave between battles
-sBattleTowerChallengeState::
+;sBattleTowerChallengeState::
 ; 0: normal
 ; 2: battle tower
 	db
 
-sNrOfBeatenBattleTowerTrainers:: db
-sBTChoiceOfLevelGroup:: db
+
+;sBattleTower:: ; be46
+;sNrOfBeatenBattleTowerTrainers:: db
+;sBTChoiceOfLevelGroup:: db
 ; Battle Tower trainers are saved here, so nobody appears more than once
-sBTTrainers:: ds BATTLETOWER_STREAK_LENGTH ; sbe48
-sBattleTowerSaveFileFlags:: db
-sBattleTowerReward:: db
+;sBTTrainers:: ds BATTLETOWER_STREAK_LENGTH ; sbe48
+;sBattleTowerSaveFileFlags:: db
+;sBattleTowerReward:: db
 
 sBTMonOfTrainers::
 ; team of previous trainer
@@ -230,7 +235,8 @@ s4_b000:: db
 
 SECTION "SRAM Mobile 2", SRAM
 
-	ds 1 ; JP: location of sMobileEventIndex
+
+sMobileEventIndex::	ds 1 ; former location for sMobileEventIndex, moved to 1:BE3C in English
 
 sTrainerRankings::
 sTrainerRankingGameTimeHOF:: ds 4
@@ -278,7 +284,7 @@ sTrainerRankingBugContestScore:: ds 2
 sTrainerRankingsChecksum:: ds 2
 sTrainerRankingsEnd::
 
-	ds 1 ; JP: location of sMobileEventIndexBackup
+sMobileEventIndexBackup::	ds 1 ; Former location for sMobileEventIndexBackup, moved to 1:BE44 in English
 
 sTrainerRankingsBackup:: ds sTrainerRankingsEnd - sTrainerRankings
 
@@ -293,19 +299,29 @@ s5_a826:: db
 
 	ds $6d
 
-s5_a894:: ds 6
-s5_a89a:: dw
-s5_a89c:: ds 22
-s5_a8b2:: ds 150
 
-s5_a948:: ds 246
-
-	ds $3
-
-s5_aa41:: ds 4
+s5_a894:: ds NAME_LENGTH_JAPANESE ; a894
 
 	ds $2
 
+s5_a89c:: ds 22 ; a89c honor roll level and room string
+;s5_a8b2::
+	ds 150 ; a8b2 honor roll downloaded names
+
+;s5_a948::
+	ds 246 ; a948 battle tower data to upload
+
+
+; Battle Tower data must be in SRAM because you can save and leave between battles
+sBattleTowerChallengeState::
+; 0: normal
+; 2: battle tower
+	db
+
+sBattleTower:: ; aa3f
+sNrOfBeatenBattleTowerTrainers:: db
+sBTChoiceOfLevelGroup:: db ; aa40
+s5_aa41:: ds 6
 s5_aa47:: db
 s5_aa48:: db
 
@@ -325,12 +341,14 @@ s5_aa72:: db
 s5_aa73:: ds 12
 s5_aa7f:: ds 12
 
-s5_aa8b:: db
-s5_aa8c:: db
-s5_aa8d:: db
-s5_aa8e:: ds 7 * $cc
 
-	ds $1
+s5_aa8b:: db ; aa8b
+s5_aa8c:: db ; aa8c
+s5_aa8d:: db ; aa8d
+;s5_aa8e::
+	ds 7 * $cc ; aa8e battle tower room data
+
+sBattleTowerSaveFileFlags:: db
 
 s5_b023:: ds 105
 s5_b08c:: ds 4
@@ -360,7 +378,11 @@ s5_b2f9:: db
 s5_b2fa:: db
 s5_b2fb:: db
 
-	ds $b49
+; relocated
+s5_a8b2:: ds HONOR_ROLL_DATA_LENGTH ; b2fc
+s5_a948:: ds 246 + 17 ; b3ce
+s5_aa8e:: ds BATTLE_TOWER_STRUCT_LENGTH * BATTLETOWER_STREAK_LENGTH
+
 
 s5_be45:: db
 s5_be46:: db

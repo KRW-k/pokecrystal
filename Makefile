@@ -126,7 +126,6 @@ pokecrystal11_debug_base = dbg
 	$(RGBFIX) $($*_opt) $@
 	tools/stadium --base $($*_base) $@
 
-
 ### LZ compression rules
 
 # Delete this line if you don't care about matching and just want optimal compression.

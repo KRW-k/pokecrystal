@@ -4,33 +4,71 @@
 	const BATTLETOWEROUTSIDE_SAILOR
 	const BATTLETOWEROUTSIDE_LASS
 
+
 BattleTowerOutside_MapScripts:
 	def_scene_scripts
+
 
 	def_callbacks
 	callback MAPCALLBACK_TILES, .Callback1
 	callback MAPCALLBACK_OBJECTS, .Callback2
 
 .Callback1:
-	endcallback
+	special Mobile_DummyReturnFalse
+	iftrue .doorsopen;$7CE6
+	changeblock 8, 8, $2C
+	return
+
+.doorsopen
+	changeblock 8, 8, $12
+	return
 
 .Callback2:
+	special Mobile_DummyReturnFalse
+	iffalse .nomobile
 	clearevent EVENT_BATTLE_TOWER_OUTSIDE_SAILOR
-	endcallback
+.nomobile
+	return
 
 BattleTowerOutsideYoungsterScript:
-	jumptextfaceplayer BattleTowerOutsideYoungsterText
+	special Mobile_DummyReturnFalse
+	iftrue .mobile
+	jumptextfaceplayer BattleTowerOutsideYoungsterText_NotYetOpen
 
-BattleTowerOutsideBeautyScript:
-	jumptextfaceplayer BattleTowerOutsideBeautyText
+.mobile
+	jumptextfaceplayer BattleTowerOutsideYoungsterText_Mobile
+
+
+BattleTowerOutsideBuenaScript:
+	special Mobile_DummyReturnFalse
+	iftrue .mobile
+	jumptextfaceplayer BattleTowerOutsideBuenaText_NotYetOpen
+
+.mobile
+	jumptextfaceplayer BattleTowerOutsideBuenaText
+
 
 BattleTowerOutsideSailorScript:
-	jumptextfaceplayer BattleTowerOutsideSailorText
+	jumptextfaceplayer BattleTowerOutsideSailorText_Mobile
 
 BattleTowerOutsideSign:
+	special Mobile_DummyReturnFalse
+	iftrue .mobile
+	jumptext BattleTowerOutsideSignText_NotYetOpen
+
+.mobile
 	jumptext BattleTowerOutsideSignText
 
-BattleTowerOutsideYoungsterText_NotYetOpen: ; unreferenced
+
+BattleTowerOutsideDoor:
+	special Mobile_DummyReturnFalse
+	iftrue .mobile
+	jumptext BattleTowerOutsideText_DoorsClosed
+
+.mobile
+	jumptext BattleTowerOutsideText_DoorsOpen
+
+BattleTowerOutsideYoungsterText_NotYetOpen:; unreferenced
 	text "Wow, the BATTLE"
 	line "TOWER is huge! My"
 
@@ -138,8 +176,11 @@ BattleTowerOutside_MapEvents:
 
 	def_coord_events
 
+
 	def_bg_events
 	bg_event 10, 10, BGEVENT_READ, BattleTowerOutsideSign
+	bg_event  8,  9, BGEVENT_READ, BattleTowerOutsideDoor; 67e8f
+	bg_event  9,  9, BGEVENT_READ, BattleTowerOutsideDoor
 
 	def_object_events
 	object_event  6, 12, SPRITE_STANDING_YOUNGSTER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, BattleTowerOutsideYoungsterScript, -1
