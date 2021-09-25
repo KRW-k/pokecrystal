@@ -6727,9 +6727,9 @@ Function11766b:
 	ld a, $5
 	ldh [rSVBK], a
 	call Function1176ee
-	ld a, $5
+	ld a, BANK(s5_b1f3)
 	call GetSRAMBank
-	ld hl, $b1f3
+	ld hl, s5_b1f3
 	ld de, wcd49
 	ld bc, $8
 	call CopyBytes
@@ -6742,10 +6742,10 @@ Function11766b:
 	ret
 
 Function117699:
-	ld a, $5
+	ld a, BANK(s5_b1f3)
 	call GetSRAMBank
 	ld hl, wcd49
-	ld de, $b1f3
+	ld de, s5_b1f3
 	ld bc, $8
 	call CopyBytes
 	ld hl, $c708
@@ -7428,10 +7428,10 @@ Function117bb6:
 	push af
 	ld a, $3
 	ldh [rSVBK], a
-	ld a, $7
+	ld a, BANK(s7_b000)
 	call GetSRAMBank
 	ld hl, w3_d002
-	ld de, $b000
+	ld de, s7_b000
 	ld bc, $1000
 	call CopyBytes
 	call CloseSRAM
@@ -7472,11 +7472,11 @@ Function117c4a:
 	ret
 
 Function117c89:
-	ld a, $7
+	ld a, BANK(s7_b000)
 	call GetSRAMBank
 	ld l, $0
 	ld h, l
-	ld de, $b000
+	ld de, s7_b000
 	ld bc, $0ffc
 .asm_117c97
 	push bc
@@ -7494,7 +7494,7 @@ Function117c89:
 	ld [wcd83], a
 	ld a, h
 	ld [wcd84], a
-	ld hl, $bfea
+	ld hl, s7_bfea
 	ld de, wcd69
 	ld bc, $10
 	call CopyBytes

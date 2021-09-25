@@ -1,15 +1,12 @@
+WIP Pokemon Crystal mobile restoration and localization, the most complete one as far as I know.
+Contains code disassembled from the Japanese ROM.
+Old version of RGBDS required, 0.3.8 should work.
 
-# Pokémon Crystal [![Build Status][ci-badge]][ci]
-Old Pokemon Crystal mobile restoration project I did casually when feeling bored.
-Nearly all added stuff was disassembled from the Japanese ROM.
-Decided to upload this here as it's the most complete restoration so far (at least that I know of) and it might be useful to someone.
-
-Things that still need work (as far as I remember):
-- Easy Chat is not localized yet (fun)
+Things that still need work:
+- Easy Chat is not localized yet
 - many graphics still need localization
-- SRAM layout is terrible right now
 - some random NPCs throughout the game might not have their original text restored yet
-- translations could be better
+- translations could be a lot better
 
 To use this properly with an already existing save file for normal Crystal:
 - let the emulator create a new save for this mod, start a new game and save once you can
@@ -24,11 +21,8 @@ It builds the following ROMs:
 - Pokemon - Crystal Version (UE) (V1.0) [C][!].gbc `sha1: f4cd194bdee0d04ca4eac29e09b8e4e9d818c133`
 - Pokemon - Crystal Version (UE) (V1.1) [C][!].gbc `sha1: f2f52230b536214ef7c9924f483392993e226cfb`
 - Pokemon - Crystal Version (A) [C][!].gbc `sha1: a0fc810f1d4e124434f7be2c989ab5b5892ddf36`
-- CRYSTAL_ps3_010328d.bin `sha1: c60d57a24bbe8ecf7cba54ab3f90669f97bd330d`
-- CRYSTAL_ps3_us_revise_010710d.bin `sha1: 391ae86b1d5a26db712ffe6c28bbf2a1f804c3c4`
 
 To set up the repository, see [INSTALL.md](INSTALL.md).
-
 
 ## See also
 
@@ -36,17 +30,17 @@ To set up the repository, see [INSTALL.md](INSTALL.md).
 - [**Documentation**][docs]
 - [**Wiki**][wiki] (includes [tutorials][tutorials])
 - **Discord:** [pret][discord]
-- **IRC:** [libera#pret][irc]
+- **IRC:** [freenode#pret][irc]
 
 Other disassembly projects:
 
 - [**Pokémon Red/Blue**][pokered]
 - [**Pokémon Yellow**][pokeyellow]
-- [**Pokémon Gold/Silver**][pokegold]
+- [**Pokémon Gold**][pokegold]
 - [**Pokémon Pinball**][pokepinball]
 - [**Pokémon TCG**][poketcg]
 - [**Pokémon Ruby**][pokeruby]
-- [**Pokémon FireRed**][pokefirered]
+- [**Pokémon Fire Red**][pokefirered]
 - [**Pokémon Emerald**][pokeemerald]
 
 [pokered]: https://github.com/pret/pokered
@@ -60,7 +54,7 @@ Other disassembly projects:
 [docs]: https://pret.github.io/pokecrystal/
 [wiki]: https://github.com/pret/pokecrystal/wiki
 [tutorials]: https://github.com/pret/pokecrystal/wiki/Tutorials
-[discord]: https://discord.gg/d5dubZ3
-[irc]: https://web.libera.chat/?#pret
-[ci]: https://github.com/pret/pokecrystal/actions
-[ci-badge]: https://github.com/pret/pokecrystal/actions/workflows/main.yml/badge.svg
+[discord]: https://discord.gg/6EuWgX9
+[irc]: https://kiwiirc.com/client/irc.freenode.net/?#pret
+[travis]: https://travis-ci.org/pret/pokecrystal
+[travis-badge]: https://travis-ci.org/pret/pokecrystal.svg?branch=master
