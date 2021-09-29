@@ -324,13 +324,13 @@ s5_a81f:: ds 4
 s5_a823:: ds 1
 s5_a824:: ds 1 ; pokemon in trade corner
 s5_a825:: ds 2 ; a825
-s5_a827:: ds NAME_LENGTH_JAPANESE - 1
+s5_a827:: ds PLAYER_NAME_LENGTH - 1
 s5_a82c:: ds PARTYMON_STRUCT_LENGTH
-s5_a85c:: ds NAME_LENGTH_JAPANESE - 1
-s5_a861:: ds NAME_LENGTH_JAPANESE - 1
+s5_a85c:: ds PLAYER_NAME_LENGTH - 1
+s5_a861:: ds MON_NAME_LENGTH - 1
 s5_a866:: ds $2a
 s5_a890:: ds 4
-s5_a894:: ds NAME_LENGTH_JAPANESE ; a894
+s5_a894:: ds PLAYER_NAME_LENGTH - 1 ; a894
 s5_a89a:: ds $2
 s5_a89c:: ds 22 ; a89c honor roll level and room string
 s5_a8b2:: ds HONOR_ROLL_DATA_LENGTH ; a8b2 honor roll downloaded names
@@ -388,7 +388,7 @@ s5_b2f3:: ds 2
 s5_b2f9:: db ; b2f9
 s5_b2fa:: db ; b2fa
 s5_b2fb:: db ; b2fb
-	ds $c2a;$d03
+	ds $c20;$d03
 s5_bfff:: ds 1
 
 

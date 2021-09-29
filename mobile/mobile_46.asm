@@ -7479,7 +7479,7 @@ Mobile46_RunJumptable:
 Function11b483:
 	call .InitRAM
 	ld hl, wPlayerName
-	ld a, NAME_LENGTH_JAPANESE - 1
+	ld a, PLAYER_NAME_LENGTH - 1
 .loop1
 	push af
 	ld a, [hli]
@@ -7556,7 +7556,7 @@ Function11b483:
 	jr .loop4
 
 .okay2
-	ld a, NAME_LENGTH - 1
+	ld a, PLAYER_NAME_LENGTH - 1
 .loop5
 	push af
 	ld a, [hli]
@@ -7578,7 +7578,7 @@ Function11b483:
 	jr .loop6
 
 .okay3
-	ld a, NAME_LENGTH - 1
+	ld a, PLAYER_NAME_LENGTH - 1
 .loop7
 	push af
 	ld a, [hli]
@@ -7672,7 +7672,7 @@ Function11b570:
 
 	ld hl, w3_d800
 	ld de, $c608
-	ld bc, w3_d88f - w3_d800
+	ld bc, w3_d88f - w3_d800 + 2 + 2 + 5
 	call CopyBytes
 
 	ld a, $1
@@ -7685,7 +7685,7 @@ Function11b570:
 	ld [de], a
 	inc de
 	ld hl, $c608
-	ld bc, w3_d88f - w3_d800
+	ld bc, w3_d88f - w3_d800 + 2 + 2 + 5
 	call CopyBytes
 
 	push de
@@ -7830,65 +7830,65 @@ Function11b6b4:
 	ld a, HIGH($c708)
 	ld [wMobileMonSpeciesPointerBuffer + 1], a
 
-	ld a, LOW($c60d) ; Partymon Struct
+	ld a, LOW(wc608 + PLAYER_NAME_LENGTH - 1) ; Partymon Struct
 	ld [wMobileMonStructurePointerBuffer], a
-	ld a, HIGH($c60d)
+	ld a, HIGH(wc608 + PLAYER_NAME_LENGTH - 1)
 	ld [wMobileMonStructurePointerBuffer + 1], a
 
-	ld a, LOW($c63d) ; OT
+	ld a, LOW(wc608 + PLAYER_NAME_LENGTH - 1 + $30) ; OT
 	ld [wMobileMonOTNamePointerBuffer], a
-	ld a, HIGH($c63d)
+	ld a, HIGH(wc608 + PLAYER_NAME_LENGTH - 1 + $30)
 	ld [wMobileMonOTNamePointerBuffer + 1], a
 
-	ld a, LOW($c642) ; Nickname
+	ld a, LOW(wc608 + PLAYER_NAME_LENGTH - 1 + $30 + PLAYER_NAME_LENGTH - 1) ; Nickname
 	ld [wMobileMonNicknamePointerBuffer], a
-	ld a, HIGH($c642)
+	ld a, HIGH(wc608 + PLAYER_NAME_LENGTH - 1 + $30 + PLAYER_NAME_LENGTH - 1)
 	ld [wMobileMonNicknamePointerBuffer + 1], a
 
-	ld a, LOW($c647) ; Mail
+	ld a, LOW(wc608 + PLAYER_NAME_LENGTH - 1 + $30 + PLAYER_NAME_LENGTH - 1 + MON_NAME_LENGTH - 1) ; Mail
 	ld [wMobileMonMailPointerBuffer], a
-	ld a, HIGH($c647)
+	ld a, HIGH(wc608 + PLAYER_NAME_LENGTH - 1 + $30 + PLAYER_NAME_LENGTH - 1 + MON_NAME_LENGTH - 1)
 	ld [wMobileMonMailPointerBuffer + 1], a
 
 	ld a, $46
-	ld [$c628], a
+	ld [wc608 + PLAYER_NAME_LENGTH - 1 + $1b], a
 
-	ld de, $c63d
-	ld c, 5
+	ld de, wc608 + PLAYER_NAME_LENGTH - 1 + $30
+	ld c, PLAYER_NAME_LENGTH - 1
 	farcall CheckStringForErrors
 	jr nc, .length_check_OT
 	farcall Mobile_CopyDefaultOTName
 
 .length_check_OT
-	ld de, $c63d
-	lb bc, 1, 5
+	ld de, wc608 + PLAYER_NAME_LENGTH - 1 + $30
+	lb bc, 1, PLAYER_NAME_LENGTH - 1
 	farcall CheckStringContainsLessThanBNextCharacters
 	jr nc, .error_check_nick
 	farcall Mobile_CopyDefaultOTName
 
 .error_check_nick
-	ld de, $c642
-	ld c, 5
+	ld de, wc608 + PLAYER_NAME_LENGTH - 1 + $30 + PLAYER_NAME_LENGTH - 1
+	ld c, MON_NAME_LENGTH - 1
 	farcall CheckStringForErrors
 	jr nc, .length_check_nick
 	farcall Mobile_CopyDefaultNickname
 
 .length_check_nick
-	ld de, $c642
-	lb bc, 1, 5
+	ld de, wc608 + PLAYER_NAME_LENGTH - 1 + $30 + PLAYER_NAME_LENGTH - 1
+	lb bc, 1, MON_NAME_LENGTH - 1
 	farcall CheckStringContainsLessThanBNextCharacters
 	jr nc, .error_check_mail
 	farcall Mobile_CopyDefaultNickname
 
 .error_check_mail
-	ld de, $c647
+	ld de, wc608 + PLAYER_NAME_LENGTH - 1 + $30 + PLAYER_NAME_LENGTH - 1 + MON_NAME_LENGTH - 1
 	ld c, MAIL_MSG_LENGTH + 1
 	farcall CheckStringForErrors
 	jr nc, .length_check_mail
 	farcall Mobile_CopyDefaultMail
 
 .length_check_mail
-	ld de, $c647
+	ld de, wc608 + PLAYER_NAME_LENGTH - 1+ $30 + PLAYER_NAME_LENGTH - 1 + MON_NAME_LENGTH - 1
 	lb bc, 2, MAIL_MSG_LENGTH + 1
 	farcall CheckStringContainsLessThanBNextCharacters
 	jr c, .fix_mail
@@ -7900,15 +7900,15 @@ Function11b6b4:
 	farcall Mobile_CopyDefaultMail
 
 .mail_ok
-	ld de, $c668
-	ld c, $5
+	ld de, wc608 + PLAYER_NAME_LENGTH - 1 + $30 + PLAYER_NAME_LENGTH - 1 + MON_NAME_LENGTH - 1 + $21
+	ld c, PLAYER_NAME_LENGTH - 1
 	farcall CheckStringForErrors
 	jr nc, .length_check_author
 	farcall Mobile_CopyDefaultMailAuthor
 
 .length_check_author
-	ld de, $c668
-	lb bc, 1, 5
+	ld de, wc608 + PLAYER_NAME_LENGTH - 1 + $30 + PLAYER_NAME_LENGTH - 1 + MON_NAME_LENGTH - 1 + $21
+	lb bc, 1, PLAYER_NAME_LENGTH - 1
 	farcall CheckStringContainsLessThanBNextCharacters
 	jr nc, .author_okay
 	farcall Mobile_CopyDefaultMailAuthor
@@ -7926,7 +7926,7 @@ Function11b6b4:
 	ld [wCurSpecies], a
 	call GetBaseData
 
-	ld hl, $c60d + MON_LEVEL
+	ld hl, wc608 + PLAYER_NAME_LENGTH - 1 + MON_LEVEL
 	ld a, [hl]
 	cp MIN_LEVEL
 	ld a, MIN_LEVEL
@@ -7940,12 +7940,12 @@ Function11b6b4:
 .done_level
 	ld [wCurPartyLevel], a
 
-	ld hl, $c60d + MON_STAT_EXP - 1
-	ld de, $c60d + MON_MAXHP
+	ld hl, wc608 + PLAYER_NAME_LENGTH - 1 + MON_STAT_EXP - 1
+	ld de, wc608 + PLAYER_NAME_LENGTH - 1 + MON_MAXHP
 	ld b, TRUE
 	predef CalcMonStats
-	ld de, $c60d + MON_MAXHP
-	ld hl, $c60d + MON_HP
+	ld de, wc608 + PLAYER_NAME_LENGTH - 1 + MON_MAXHP
+	ld hl, wc608 + PLAYER_NAME_LENGTH - 1 + MON_HP
 	ld a, [de]
 	ld [hli], a
 	inc de
@@ -7955,27 +7955,27 @@ Function11b6b4:
 	ret
 
 Function11b7e5:
-	ld a, [$c60d] ; species
+	ld a, [wc608 + PLAYER_NAME_LENGTH - 1] ; species
 	ld [wOTTrademonSpecies], a
 	ld [wCurPartySpecies], a
 	ld a, [wcd81]
 	ld [wc74e], a
-	ld hl, $c63d ; OT
+	ld hl, wc608 + PLAYER_NAME_LENGTH - 1 + $30 ; OT
 	ld de, wOTTrademonOTName
-	ld bc, 5
+	ld bc, PLAYER_NAME_LENGTH - 1
 	call CopyBytes
 	ld a, "@"
 	ld [de], a
-	ld a, [$c60d + MON_ID] ; id
+	ld a, [wc608 + PLAYER_NAME_LENGTH - 1 + MON_ID] ; id
 	ld [wOTTrademonID], a
-	ld a, [$c60d + MON_ID + 1]
+	ld a, [wc608 + PLAYER_NAME_LENGTH - 1 + MON_ID + 1]
 	ld [wOTTrademonID + 1], a
-	ld hl, $c60d + MON_DVS ; dvs
+	ld hl, wc608 + PLAYER_NAME_LENGTH - 1 + MON_DVS ; dvs
 	ld a, [hli]
 	ld [wOTTrademonDVs], a
 	ld a, [hl]
 	ld [wOTTrademonDVs + 1], a
-	ld bc, $c60d ; pokemon_data_start
+	ld bc, wc608 + PLAYER_NAME_LENGTH - 1 ; pokemon_data_start
 	farcall GetCaughtGender
 	ld a, c
 	ld [wOTTrademonCaughtData], a
@@ -8123,7 +8123,7 @@ Function11b93b:
 	ld [s5_a800], a
 	ld hl, s5_a823
 	ld de, $c608
-	ld bc, $008f
+	ld bc, $008f + 2 + 2 + 5
 	call CopyBytes
 	call CloseSRAM
 
@@ -8132,24 +8132,24 @@ Function11b93b:
 	ld a, HIGH($c608)
 	ld [wMobileMonSpeciesPointerBuffer + 1], a
 
-	ld a, LOW($c608 + $9)
+	ld a, LOW($c608 + 4 + PLAYER_NAME_LENGTH - 1)
 	ld [wMobileMonStructurePointerBuffer], a
-	ld a, HIGH($c608 + $9)
+	ld a, HIGH($c608 + 4 + PLAYER_NAME_LENGTH - 1)
 	ld [wMobileMonStructurePointerBuffer + 1], a
 
-	ld a, LOW($c608 + $39)
+	ld a, LOW($c608 + 4 + PLAYER_NAME_LENGTH - 1 + $30)
 	ld [wMobileMonOTNamePointerBuffer], a
-	ld a, HIGH($c608 + $39)
+	ld a, HIGH($c608 + 4 + PLAYER_NAME_LENGTH - 1 + $30)
 	ld [wMobileMonOTNamePointerBuffer + 1], a
 
-	ld a, LOW($c608 + $3e)
+	ld a, LOW($c608 + 4 + PLAYER_NAME_LENGTH - 1 + $30 + PLAYER_NAME_LENGTH - 1)
 	ld [wMobileMonNicknamePointerBuffer], a
-	ld a, HIGH($c608 + $3e)
+	ld a, HIGH($c608 + 4 + PLAYER_NAME_LENGTH - 1 + $30 + PLAYER_NAME_LENGTH - 1)
 	ld [wMobileMonNicknamePointerBuffer + 1], a
 
-	ld a, LOW($c608 + $43)
+	ld a, LOW($c608 + 4 + PLAYER_NAME_LENGTH - 1 + $30 + PLAYER_NAME_LENGTH - 1 + MON_NAME_LENGTH - 1)
 	ld [wMobileMonMailPointerBuffer], a
-	ld a, HIGH($c608 + $43)
+	ld a, HIGH($c608 + 4 + PLAYER_NAME_LENGTH - 1 + $30 + PLAYER_NAME_LENGTH - 1 + MON_NAME_LENGTH - 1)
 	ld [wMobileMonMailPointerBuffer + 1], a
 	call AddMobileMonToParty
 	farcall SaveAfterLinkTrade

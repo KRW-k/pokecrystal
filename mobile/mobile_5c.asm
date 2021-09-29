@@ -3,27 +3,27 @@ Function170000:
 	ld [wPlayerTrademonSpecies], a
 	ld hl, $c62e
 	ld de, wPlayerTrademonSenderName
-	ld bc, $0005
+	ld bc, PLAYER_NAME_LENGTH - 1
 	call CopyBytes
 	ld a, $50
 	ld [de], a
-	ld hl, $c663
+	ld hl, $c62e + PLAYER_NAME_LENGTH - 1 + $30
 	ld de, wPlayerTrademonOTName
-	ld bc, $0005
+	ld bc, MON_NAME_LENGTH - 1
 	call CopyBytes
 	ld a, $50
 	ld [de], a
-	ld hl, $c648
+	ld hl, $c62e + PLAYER_NAME_LENGTH - 1 + MON_DVS
 	ld a, [hli]
 	ld [wPlayerTrademonDVs], a
 	ld a, [hl]
 	ld [wPlayerTrademonDVs + 1], a
-	ld hl, $c639
+	ld hl, $c62e + PLAYER_NAME_LENGTH - 1 + MON_ID
 	ld a, [hli]
 	ld [wPlayerTrademonID], a
 	ld a, [hl]
 	ld [wPlayerTrademonID + 1], a
-	ld bc, $c633
+	ld bc, $c62e + PLAYER_NAME_LENGTH - 1
 	farcall GetCaughtGender
 	ld a, c
 	ld [wPlayerTrademonCaughtData], a
@@ -31,7 +31,7 @@ Function170000:
 	ld [wc74e], a
 	ld hl, $c608
 	ld de, $d800
-	ld bc, $008f
+	ld bc, $008f + 2 + 2 + 5
 	call CopyBytes
 	ret
 
@@ -42,7 +42,7 @@ Function17005a:
 	ld [wOTTrademonSpecies], a
 	ld hl, s5_a827
 	ld de, wOTTrademonSenderName
-	ld bc, NAME_LENGTH - 1
+	ld bc, PLAYER_NAME_LENGTH - 1
 	call CopyBytes
 	ld a, "@"
 	ld [de], a
