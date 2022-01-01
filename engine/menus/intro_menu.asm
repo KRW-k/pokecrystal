@@ -1365,4 +1365,5 @@ GameInit::
 	ld a, $5b
 	farcall MobileAdapterCheck
 	
+
 	jp IntroSequence

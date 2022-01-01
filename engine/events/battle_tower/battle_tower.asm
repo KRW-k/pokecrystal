@@ -19,8 +19,10 @@ Function1700c4:
 	call Function17042c
 
 
+
 	ld a, BANK(sBattleTowerChallengeState) ; aka BANK(sNrOfBeatenBattleTowerTrainers) and BANK(s5_aa41) and BANK(s5_aa5d) ; s5_be45 = sBattleTowerChallengeState, s5_be45 = sNrOfBeatenBattleTowerTrainers
 	call OpenSRAM
+
 	ld a, 1
 	ld [sBattleTowerChallengeState], a
 	xor a
@@ -31,7 +33,6 @@ Function1700c4:
 	call CopyBytes
 	ld hl, w3_d202Name
 	ld de, s5_aa8e
-
 	ld bc, BATTLE_TOWER_STRUCT_LENGTH * BATTLETOWER_STREAK_LENGTH;7 * $cc ; length of battle tower struct from japanese games?
 	call CopyBytes
 	ld hl, s5_aa5d ; some sort of count
@@ -85,6 +86,7 @@ Function170114:
 	ldh [rSVBK], a
 	
 	ret
+
 
 
 ; generate data to upload?
@@ -615,7 +617,6 @@ CopyBTTrainer_FromBT_OT_TowBT_OTTemp:
 SkipBattleTowerTrainer:
 	ret
 
-
 Function1704ca:
 ; get sram address of trainer data
 	ld a, [sNrOfBeatenBattleTowerTrainers]
@@ -627,7 +628,6 @@ Function1704ca:
 	ld hl, s5_aa8e + BATTLE_TOWER_STRUCT_LENGTH * (BATTLETOWER_STREAK_LENGTH - 1)
 	ld de, -BATTLE_TOWER_STRUCT_LENGTH
 .loop
-
 	and a
 	jr z, .done
 	add hl, de
@@ -942,7 +942,6 @@ BattleTowerAction:
 ;	dw BattleTower_SaveOptions
 
 ; Reset the save memory for BattleTower-Trainers (Counter and all 7 TrainerBytes)
-
 ;ResetBattleTowerTrainersSRAM:
 ;	ld a, BANK(sBTTrainers)
 ;	call GetSRAMBank
@@ -1077,6 +1076,7 @@ SetBattleTowerChallengeState:
 
 Function1707ac:
 	ld a, BANK(s5_aa8c) ; aka BANK(sNrOfBeatenBattleTowerTrainers)
+
 	call OpenSRAM
 	ld a, [s5_aa8c]
 	ld b, a
@@ -1599,7 +1599,6 @@ LoadOpponentTrainerAndPokemonWithOTSprite:
     call Unreferenced_Function1704ca;Call_05c_44d4
     ld de, NAME_LENGTH - 1;$0005
     add hl, de
-
 	ld a, [hl]
 	dec a
 	
