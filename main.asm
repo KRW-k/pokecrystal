@@ -519,9 +519,9 @@ INCLUDE "engine/movie/title.asm"
 SECTION "mobile45", ROMX
 
 INCLUDE "mobile/mobile_45.asm"
-INCLUDE "mobile/mobile_45_sprite_engine.asm"
-INCLUDE "mobile/mobile_45_2.asm"
-INCLUDE "mobile/mobile_45_stadium.asm"
+;INCLUDE "mobile/mobile_45_sprite_engine.asm"
+;INCLUDE "mobile/mobile_45_2.asm"
+;INCLUDE "mobile/mobile_45_stadium.asm"
 
 
 SECTION "mobile46", ROMX
@@ -532,6 +532,14 @@ INCLUDE "mobile/mobile_46.asm"
 SECTION "Battle Tower", ROMX
 
 INCLUDE "engine/events/battle_tower/trainer_text.asm"
+
+SECTION "Battle Tower 2", ROMX
+
+INCLUDE "engine/events/battle_tower/trainer_text_2.asm"
+
+SECTION "Battle Tower 3", ROMX
+
+INCLUDE "mobile/fixed_words.asm"
 
 
 SECTION "bank5B", ROMX
@@ -560,6 +568,9 @@ INCLUDE "data/phone/text/wade_caller.asm"
 INCLUDE "data/phone/text/ralph_caller.asm"
 INCLUDE "data/phone/text/liz_caller.asm"
 INCLUDE "data/phone/text/anthony_caller.asm"
+
+SECTION "Crystal Phone Text 3", ROMX
+
 INCLUDE "data/phone/text/todd_caller.asm"
 INCLUDE "data/phone/text/gina_caller.asm"
 
@@ -620,15 +631,17 @@ INCLUDE "data/phone/text/arnie_callee.asm"
 INCLUDE "data/phone/text/alan_callee.asm"
 INCLUDE "data/phone/text/dana_callee.asm"
 INCLUDE "data/phone/text/chad_callee.asm"
+
+SECTION "Special Phone Text 2", ROMX
+INCLUDE "data/phone/text/erin_callee.asm"
+INCLUDE "data/phone/text/kenji_callee.asm"
+INCLUDE "data/phone/text/parry_callee.asm"
 INCLUDE "data/phone/text/derek_callee.asm"
 INCLUDE "data/phone/text/tully_callee.asm"
 INCLUDE "data/phone/text/brent_callee.asm"
 INCLUDE "data/phone/text/tiffany_callee.asm"
 INCLUDE "data/phone/text/vance_callee.asm"
 INCLUDE "data/phone/text/wilton_callee.asm"
-INCLUDE "data/phone/text/kenji_callee.asm"
-INCLUDE "data/phone/text/parry_callee.asm"
-INCLUDE "data/phone/text/erin_callee.asm"
 ;INCLUDE "data/phone/text/unused.asm"
 
 

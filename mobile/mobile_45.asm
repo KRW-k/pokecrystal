@@ -5156,7 +5156,7 @@ Function115d80:
 	ret
 
 
-INCLUDE "mobile/mobile_45_sprite_engine.asm"
+;INCLUDE "mobile/mobile_45_sprite_engine.asm"
 
 Function116567:
 	ld hl, wc3f7

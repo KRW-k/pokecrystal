@@ -24,17 +24,17 @@ OpenSRAMBank4:
 
 Function89168:
 	ld hl, wGameTimerPause
-	set GAMETIMERPAUSE_MOBILE_7_F, [hl]
+	set GAME_TIMER_MOBILE_F, [hl]
 	ret
 
 Function8916e:
 	ld hl, wGameTimerPause
-	res GAMETIMERPAUSE_MOBILE_7_F, [hl]
+	res GAME_TIMER_MOBILE_F, [hl]
 	ret
 
 Function89174:
 	ld hl, wGameTimerPause
-	bit GAMETIMERPAUSE_MOBILE_7_F, [hl]
+	bit GAME_TIMER_MOBILE_F, [hl]
 	ret
 
 Function8917a:
