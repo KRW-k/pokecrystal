@@ -677,7 +677,7 @@ Function17d370:
 	call CopyBytes
 	xor a
 	ldh [rVBK], a
-	ld hl, GFX_17eb7e
+	ld hl, PostalMarkGFX
 	ld de, vTiles2 tile $60
 	ld bc, 1 tiles
 	call CopyBytes
@@ -729,7 +729,7 @@ Function17d405:
 	push af
 	ld a, $5
 	ldh [rSVBK], a
-	ld hl, Palette_17eff6
+	ld hl, PokemonNewsPalettes
 	ld de, wBGPals1
 	ld bc, 8 palettes
 	call CopyBytes
@@ -764,11 +764,11 @@ Jumptable_17d483:
 	dw Function17e427
 
 Function17d48d:
-	ld hl, Palette_17eff6
+	ld hl, PokemonNewsPalettes
 	ld de, wc608
 	ld bc, $40
 	call CopyBytes
-	ld hl, TileAttrmap_17eb8e
+	ld hl, PokemonNewsTileAttrmap
 	decoord 0, 0
 	bccoord 0, 0, wAttrMap
 	ld a, $12
@@ -2922,9 +2922,9 @@ Function17e2a7:
 	xor a
 	ld [wcf66], a
 	farcall Function118233
-	ld de, GFX_17eb7e
+	ld de, PostalMarkGFX
 	ld hl, vTiles2 tile $60
-	lb bc, BANK(GFX_17eb7e), 1
+	lb bc, BANK(PostalMarkGFX), 1
 	call Get2bpp
 	ld a, [wc300]
 	and a
@@ -3582,45 +3582,14 @@ Function17e6de:
 PokemonNewsGFX:
 INCBIN "gfx/mobile/pokemon_news.2bpp"
 
-GFX_17eb7e:
-INCBIN "gfx/unknown/17eb7e.2bpp"
+PostalMarkGFX:
+INCBIN "gfx/font/postal_mark.2bpp"
 
-TileAttrmap_17eb8e:
-INCBIN "gfx/unknown/17eb8e.attrmap"
+PokemonNewsTileAttrmap:
+INCBIN "gfx/mobile/pokemon_news.bin"
 
-Palette_17eff6:
-	RGB 24,  9,  8
-	RGB  4,  9, 18
-	RGB 18, 18, 12
-	RGB  0,  0,  0
-	RGB 24, 24, 18
-	RGB 18, 18, 12
-	RGB  4,  9, 18
-	RGB  0,  0,  0
-	RGB 31, 31, 31
-	RGB 23, 11, 10
-	RGB 13,  6,  5
-	RGB  0,  0,  0
-	RGB 31, 31, 31
-	RGB 15, 25,  5
-	RGB 10, 20,  0
-	RGB  0,  0,  0
-	RGB 31, 31, 31
-	RGB 20, 28, 20
-	RGB 10, 18, 15
-	RGB  0,  0,  0
-	RGB 31, 31, 31
-	RGB 22, 22, 12
-	RGB 17, 12,  5
-	RGB  0,  0,  0
-	RGB  5,  5, 16
-	RGB  8, 19, 28
-	RGB  0,  0,  0
-	RGB 31, 31, 31
-	RGB 31, 31, 31
-	RGB 27, 24,  0
-	RGB 24, 16,  3
-	RGB  0,  0,  0
+PokemonNewsPalettes:
+INCLUDE "gfx/mobile/pokemon_news.pal"
 
 RunMobileScript::
 	ld a, $6

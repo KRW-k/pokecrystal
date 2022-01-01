@@ -517,8 +517,8 @@ Function893fe:
 	call DelayFrame
 	ret
 
-GFX_8940b:
-INCBIN "gfx/unknown/08940b.2bpp"
+EZChatCursorGFX:
+INCBIN "gfx/mobile/ez_chat_cursor.2bpp"
 
 Function8942b:
 	ld de, vTiles0 tile $02

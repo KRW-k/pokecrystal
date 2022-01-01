@@ -6938,8 +6938,8 @@ Unknown_10327a:
 	db $00, $00, $03, $02
 	db $00, $00, $01, $03
 
-GFX_1032a2:
-INCBIN "gfx/unknown/1032a2.2bpp"
+MobileTradeLightsGFX:
+INCBIN "gfx/mobile/mobile_trade_lights.2bpp"
 
 Palettes_1032e2:
 	RGB  0,  0,  0

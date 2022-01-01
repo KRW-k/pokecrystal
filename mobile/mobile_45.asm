@@ -6558,9 +6558,9 @@ Palette_11734e:
 	RGB 10,  9,  9
 	RGB 15, 14, 14
 
-Unknown_117356:
-INCBIN "gfx/unknown/117356.tilemap"
-INCBIN "gfx/unknown/1174d6.attrmap"
+PichuBorderMobileTilemapAttrmap:
+INCBIN "gfx/mobile/pichu_border.tilemap"
+INCBIN "gfx/mobile/pichu_border.attrmap"
 
 
 SECTION "Mobile Stadium", ROMX

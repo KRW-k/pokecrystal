@@ -1604,12 +1604,12 @@ LoadOpponentTrainerAndPokemonWithOTSprite:
 	dec a
 	
 	cp $42
-	jr c, jr_05c_4aa6
+	jr c, .jr_05c_4aa6
 	ld a, $16
     ld [hl], a
     dec a
 
-jr_05c_4aa6;
+.jr_05c_4aa6
 	ld c, a
 	ld b, 0
 ;	pop af
